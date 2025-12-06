@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import lang from "../utils/languageConstants";
 import { useRef } from "react";
 import { API_OPTIONS } from "../utils/constants";
-import {addPerplexityResult} from "../utils/gptSlice"
+import { addPerplexityResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const langKey = useSelector((store) => store.config.lang);
   const searchText = useRef(null);
 
@@ -28,22 +28,25 @@ const GptSearchBar = () => {
       ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi mil gaya";
 
     try {
-      const response = await fetch("http://localhost:5000/api/perplexity", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "sonar",
-          messages: [{ role: "user", content: query }],
-        }),
-      });
+      const response = await fetch(
+        "https://netflix-gpt-q4pp-7euol6ec1-devraj-singhs-projects-cfcd9b87.vercel.app",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "sonar",
+            messages: [{ role: "user", content: query }],
+          }),
+        }
+      );
 
       const data = await response.json();
-      console.log("Message content:",data.choices[0].message.content);
+      console.log("Message content:", data.choices[0].message.content);
       // Now use this data in your UI
       const perplexityMovies = data.choices[0].message.content.split(",");
-          
+
       const promiseArray = perplexityMovies.map((movie) => {
         const trimmedMovie = movie.trim(); // Remove whitespace
         //console.log("Searching TMDB for:", trimmedMovie);
@@ -52,9 +55,13 @@ const GptSearchBar = () => {
 
       const tmdbResults = await Promise.all(promiseArray);
       console.log("TMDB Results:", tmdbResults);
-      
-      dispatch(addPerplexityResult({movieNames: perplexityMovies,movieResults: tmdbResults}));
 
+      dispatch(
+        addPerplexityResult({
+          movieNames: perplexityMovies,
+          movieResults: tmdbResults,
+        })
+      );
     } catch (error) {
       console.error("Error:", error);
     }
