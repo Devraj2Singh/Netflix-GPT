@@ -4,20 +4,19 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(express.json());
-
-
+// ⭐ MUST come at the top BEFORE routes
 app.use(
   cors({
-    origin:
-      "https://netflix-p3iin0xg3-devraj-singhs-projects-cfcd9b87.vercel.app",
+    origin: "https://netflix-p3iin0xg3-devraj-singhs-projects-cfcd9b87.vercel.app",
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-
+// ⭐ Allows browser to send OPTIONS request
 app.options("*", cors());
+
+app.use(express.json());
 
 app.post("/api/perplexity", async (req, res) => {
   try {
