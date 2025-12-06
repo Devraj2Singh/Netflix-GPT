@@ -3,7 +3,9 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+
 app.use(express.json());
+
 
 app.use(
   cors({
@@ -13,6 +15,9 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+
+app.options("*", cors());
 
 app.post("/api/perplexity", async (req, res) => {
   try {
@@ -24,6 +29,7 @@ app.post("/api/perplexity", async (req, res) => {
       },
       body: JSON.stringify(req.body),
     });
+
     const data = await response.json();
     res.json(data);
   } catch (err) {
