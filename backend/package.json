@@ -1,10 +1,10 @@
 {
   "name": "netflix_gpt_backend",
   "version": "1.0.0",
-  "main": "Server.js",
+  "main": "api/perplexity.js",
   "scripts": {
     "test": "start",
-    "start": "node index.js"
+    "start": "node api/perplexity.js"
   },
   "author": "",
   "license": "ISC",
