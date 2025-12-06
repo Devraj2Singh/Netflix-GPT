@@ -29,7 +29,7 @@ const GptSearchBar = () => {
 
     try {
       const response = await fetch(
-        "https://netflix-gpt-q4pp-7euol6ec1-devraj-singhs-projects-cfcd9b87.vercel.app",
+        "https://netflix-gpt-q4pp-7euol6ec1-devraj-singhs-projects-cfcd9b87.vercel.app/api/perplexity",
         {
           method: "POST",
           headers: {
