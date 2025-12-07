@@ -29,7 +29,7 @@ const GptSearchBar = () => {
 
     try {
       const response = await fetch(
-        "https://netflix-gpt-8smy-451fwoirz-devraj-singhs-projects-cfcd9b87.vercel.app/api/perplexity",
+        "https://ai-backend-ja4e.onrender.com/",
         {
           method: "POST",
           headers: {
